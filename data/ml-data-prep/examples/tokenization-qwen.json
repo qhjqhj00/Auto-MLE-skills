@@ -1,0 +1,28 @@
+{
+  "tokenizer": "/home/spark/workspace/models/Qwen3.6-35B-A3B-FP8",
+  "special_tokens": {
+    "bos": null,
+    "eos": "<|im_end|>",
+    "pad": "<|endoftext|>",
+    "pad_side": "right"
+  },
+  "findings": [
+    {
+      "level": "info",
+      "code": "eos-ok",
+      "message": "EOS present at/near the end of the assistant turn."
+    },
+    {
+      "level": "warn",
+      "code": "label-mask-unknown",
+      "message": "this template does NOT mark an assistant token region (no {% generation %} block), so transformers can't auto-build the loss mask. You MUST mask prompt tokens to -100 yourself (DataCollatorForCompletionOnlyLM / train_on_inputs=false), else the model trains on the prompt too."
+    },
+    {
+      "level": "warn",
+      "code": "packing-attention",
+      "message": "if you pack ~105 samples into one 4096-token block: a NAIVE concat lets later samples attend to earlier ones (cross-contamination, no error raised). Require a block-diagonal mask (FlashAttention varlen) + position_ids reset per doc. At the join (doc1 end | doc2 start) position_ids should be correct=[37, 38, 0, 1, 2] (resets to 0), NOT naive=[37, 38, 39, 40, 41] (keeps counting)."
+    }
+  ],
+  "rendered_preview": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\nWhat is the capital of France?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nThe capital of France is Paris.<|im_end|>\n",
+  "n_tokens": 39
+}

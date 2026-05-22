@@ -1,0 +1,56 @@
+{
+  "schema": "ml-data-prep/quality/1",
+  "input": "/tmp/bad.openai.jsonl",
+  "n_records": 6,
+  "valid_records": 6,
+  "formats": {
+    "openai": 6
+  },
+  "length": {
+    "unit": "chars",
+    "p50": 14.0,
+    "p90": 141.5,
+    "p99": 249.1,
+    "max": 261,
+    "mean": 55.8
+  },
+  "issues": {
+    "no_assistant": 1,
+    "empty_assistant": 1,
+    "empty_user": 0,
+    "exact_duplicates": 1,
+    "normalized_duplicates": 1,
+    "not_ending_on_assistant": 1,
+    "non_alternating": 0,
+    "over_max_len": 1,
+    "answer_at_risk": 1
+  },
+  "flags": [
+    {
+      "level": "error",
+      "code": "no-assistant",
+      "message": "1 samples have NO assistant turn — nothing to learn from; drop them."
+    },
+    {
+      "level": "error",
+      "code": "empty-assistant",
+      "message": "1 samples have an empty assistant turn — teaches the model to output nothing; drop or fix."
+    },
+    {
+      "level": "warn",
+      "code": "exact-duplicates",
+      "message": "1 exact-duplicate samples (16.7%) — inflates those examples / memorization risk; dedup."
+    },
+    {
+      "level": "warn",
+      "code": "not-ending-on-assistant",
+      "message": "1 conversations don't end on an assistant turn — for SFT the last turn should be the assistant response."
+    },
+    {
+      "level": "warn",
+      "code": "truncation",
+      "message": "1 samples (16.7%) exceed max_len=30 [≈chars/4 (no tokenizer)]; 1 of them end on the assistant turn → its answer gets cut (model learns not to finish). Raise max_len, truncate the prompt side, or filter."
+    }
+  ],
+  "verdict": "❌ will-harm-training"
+}

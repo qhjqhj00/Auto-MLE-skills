@@ -42,11 +42,20 @@ machine *first*, then tell the agent what it can and can't run.
 | [**ml-env-probe**](environment/ml-env-probe/) | Probe hardware/software (NVIDIA, Apple MPS, CPU, TPU, and Chinese accelerators — 昇腾/寒武纪/海光/沐曦) and produce a ✅/⚠️/❌ capability report: which torch/CUDA combo to use, why flash-attn/xformers won't build, how to isolate the env, how to split across GPUs. |
 | [**ml-vram-estimator**](environment/ml-vram-estimator/) | Estimate VRAM *before* launch so a run doesn't OOM hours in. Breaks down weights + KV-cache + gradients + optimizer + activations, handles GQA / MoE / hybrid attention / quantization, and returns a fits/tight/OOM verdict with fallbacks. |
 
+### 📦 `data/` — dataset preparation
+
+Framework-neutral: one well-prepared dataset serves any downstream trainer.
+
+| Skill | What it does |
+|-------|--------------|
+| [**ml-data-prep**](data/ml-data-prep/) | Convert between alpaca / sharegpt / openai-messages, check data quality (empty/duplicate/malformed samples, length distribution, truncation risk, label alignment), and inspect tokenization & packing — catching the *silent* failures (truncated answers, wrong label masking, missing EOS, double-BOS, cross-document packing contamination) that don't error but quietly hurt the model. |
+
 ## Roadmap
 
 | Category | Status | Scope |
 |----------|--------|-------|
 | `environment/` | ✅ available | env & dependency detection, VRAM estimation |
+| `data/` | ✅ available | dataset format conversion, quality checks, tokenization/packing |
 | `training/` | planned | training config, launch, distributed orchestration, hyperparameter sanity |
 | `harness/` | planned | experiment scaffolding: logging, checkpoint/resume, monitoring, run management |
 | `evaluation/` | planned | benchmark setup, metric pipelines |

@@ -1,0 +1,5 @@
+[
+  {"instruction":"What is the capital of France?","input":"","output":"The capital of France is Paris."},
+  {"system":"You are a helpful assistant.","instruction":"Translate to French.","input":"Good morning","output":"Bonjour"},
+  {"instruction":"Continue the chat.","input":"","output":"Sure, what about now?","history":[["Hi there","Hello! How can I help?"],["Tell me a joke","Why did the chicken cross the road?"]]}
+]
