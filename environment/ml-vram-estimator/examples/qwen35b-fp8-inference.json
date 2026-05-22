@@ -1,0 +1,57 @@
+{
+  "schema": "ml-vram-estimator/1",
+  "model": {
+    "name": "Qwen3.6-35B-A3B-FP8",
+    "layers": 40,
+    "hidden": 2048,
+    "n_heads": 16,
+    "kv_heads": 2,
+    "head_dim": 256,
+    "vocab": 248320,
+    "full_attn_layers": 10,
+    "is_hybrid": true,
+    "moe": {
+      "num_experts": 256,
+      "experts_per_tok": 8,
+      "moe_intermediate": 512
+    },
+    "weight_source": "on-disk weights (42 files)"
+  },
+  "scenario": {
+    "mode": "inference",
+    "batch": 1,
+    "seq": 8192,
+    "weight_dtype": "fp8",
+    "kv_dtype": "bf16",
+    "optimizer": null,
+    "grad_ckpt": null,
+    "parallelism": {
+      "tp": 1,
+      "pp": 1,
+      "dp": 1,
+      "zero": 0
+    },
+    "overhead_gb": 1.0,
+    "safety_margin": 1.1
+  },
+  "breakdown_per_gpu_gb": {
+    "weights": 34.89,
+    "kv_cache": 0.16,
+    "activations": 0.03
+  },
+  "model_total_gb": {
+    "weights": 34.89,
+    "kv_cache": 0.16,
+    "activations": 0.03
+  },
+  "overhead_gb": 1.0,
+  "total_per_gpu_gb": 39.69,
+  "n_gpus_implied": 1,
+  "notes": [
+    "Hybrid attention: KV-cache counted for 10 full-attn layers only (of 40). Linear/SSM layers add a small constant state not modeled here.",
+    "MoE: all expert weights occupy VRAM (counted in weights). Compute uses only active experts, but memory holds them all."
+  ],
+  "available_vram_gb_per_gpu": 121.7,
+  "verdict": "fits",
+  "verdict_label": "✅ fits (39.69GB / 121.7GB = 33%)"
+}

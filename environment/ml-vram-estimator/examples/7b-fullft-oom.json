@@ -1,0 +1,54 @@
+{
+  "schema": "ml-vram-estimator/1",
+  "model": {
+    "name": "manual",
+    "layers": 32,
+    "hidden": 4096,
+    "n_heads": null,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "vocab": null,
+    "full_attn_layers": 32,
+    "is_hybrid": false,
+    "moe": null,
+    "weight_source": "--num-params-b x bf16"
+  },
+  "scenario": {
+    "mode": "training",
+    "batch": 4,
+    "seq": 4096,
+    "weight_dtype": "bf16",
+    "kv_dtype": "bf16",
+    "optimizer": "adamw",
+    "grad_ckpt": false,
+    "parallelism": {
+      "tp": 1,
+      "pp": 1,
+      "dp": 1,
+      "zero": 0
+    },
+    "overhead_gb": 1.0,
+    "safety_margin": 1.1
+  },
+  "breakdown_per_gpu_gb": {
+    "weights": 13.04,
+    "gradients": 13.04,
+    "optimizer": 78.23,
+    "activations": 64.12
+  },
+  "model_total_gb": {
+    "weights": 13.04,
+    "gradients": 13.04,
+    "optimizer": 78.23,
+    "activations": 64.12
+  },
+  "overhead_gb": 1.0,
+  "total_per_gpu_gb": 186.38,
+  "n_gpus_implied": 1,
+  "notes": [
+    "Training without gradient checkpointing: activations dominate at long seq (seq^2 attention term). Add --grad-ckpt to cut activation memory."
+  ],
+  "available_vram_gb_per_gpu": 80.0,
+  "verdict": "oom",
+  "verdict_label": "❌ oom (186.38GB / 80.0GB = 233%)"
+}

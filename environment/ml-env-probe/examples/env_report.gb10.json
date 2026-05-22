@@ -1,0 +1,81 @@
+{
+  "schema": "ml-env-probe/1",
+  "platform": {
+    "os": "linux",
+    "arch": "aarch64",
+    "python": "3.13.13",
+    "python_executable": "/home/spark/miniconda3/bin/python3",
+    "kernel": "6.17.0-1014-nvidia",
+    "cpu_count": 20,
+    "ram_gb": 121.7
+  },
+  "accelerator": {
+    "vendor": "nvidia",
+    "name": "NVIDIA GB10",
+    "count": 1,
+    "homogeneous": true,
+    "vram_gb": null,
+    "compute_cap": "12.1",
+    "arch_codename": "blackwell",
+    "min_cuda_for_arch": "12.8",
+    "gpus": [
+      {
+        "name": "NVIDIA GB10",
+        "vram_gb": null,
+        "compute_cap": "12.1"
+      }
+    ]
+  },
+  "toolkit": {
+    "cuda_toolkit_nvcc": "13.0",
+    "cuda_driver_max": "13.0",
+    "driver_version": "580.142",
+    "cudnn": null,
+    "rocm": null
+  },
+  "interconnect": {
+    "nvlink": false,
+    "nvlink_detail": null,
+    "topology": "single-gpu",
+    "multi_node": null,
+    "multi_node_signals": []
+  },
+  "pkg_managers": {
+    "available": [
+      "conda",
+      "pip"
+    ],
+    "versions": {
+      "conda": "conda 26.3.2",
+      "pip": "pip 26.0.1 from /home/spark/miniconda3/lib/python3.13/site-packages/pip (python 3.13)"
+    },
+    "in_conda_env": "base",
+    "in_virtualenv": null
+  },
+  "frameworks": {
+    "torch": null,
+    "numpy": "2.4.4"
+  },
+  "flags": [
+    {
+      "level": "warn",
+      "code": "arm-cuda",
+      "message": "aarch64 + NVIDIA: many prebuilt wheels (flash-attn, xformers, bitsandbytes) ship x86_64 only. Expect source builds or unavailability."
+    },
+    {
+      "level": "warn",
+      "code": "python-too-new",
+      "message": "Python 3.13.13: newest ML wheels often lag. flash-attn/vllm/some torch builds may have no cp313 wheel. 3.10–3.12 is the safe band."
+    },
+    {
+      "level": "warn",
+      "code": "blackwell",
+      "message": "Blackwell (sm_121): needs CUDA >= 12.8 and a recent torch (>=2.7 / nightly cu128). FlashAttention-2 lacks sm_120 kernels — use PyTorch SDPA or FA3-class paths."
+    },
+    {
+      "level": "info",
+      "code": "numpy2",
+      "message": "numpy 2.x present: many ML packages compiled against numpy 1.x ABI break at import. Pin numpy<2 if you hit '_ARRAY_API not found'."
+    }
+  ]
+}
